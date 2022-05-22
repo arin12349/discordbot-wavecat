@@ -1,7 +1,7 @@
-#WaveCat
+# WaveCat
 Discord Music bot
 
-##features
+## features
 - [x] find music
 - [x] play music
 - [x] stop music
