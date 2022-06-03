@@ -35,10 +35,31 @@ Discord Music bot
  ### Music play
   Type commad Link or Song name
   find youtube and play
+  ``` JS
+const stream = ytdl(song.url, { filter: 'audioonly' });
+const resource = createAudioResource(stream, { inlineVolume: true });
+resource.volume.setVolume(.5);
+audioPlayer.play(resource)
+audioPlayer
+.on(AudioPlayerStatus.Idle, () => {
+     serverQueue.songs.shift();
+     play(guild, serverQueue.songs[0], connection);
+})
+audioPlayer.on("error", error => console.error(error));
+serverQueue.textChannel.send(`재생중인노래: **${song.title}**`);
+```
   
  ### Music stop
   type stop command stop song play and disconnect
+  ``` JS
+serverQueue.songs = [];
+serverQueue.connection.destroy();
+queue.delete(message.guild.id);
+  ```
   
  ### Music skip
   type skip command skip song and play next song
-  
+  ``` JS
+serverQueue.songs.shift();
+play(message.guild, serverQueue.songs[0], serverQueue.connection);
+  ```
